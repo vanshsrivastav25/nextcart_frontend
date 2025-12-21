@@ -5,11 +5,6 @@ import Shop from './components/Shop'
 import { ThemeProvider } from './components/contexts/ThemeContext'
 
 function App() {
-  useEffect(() => {
-    // Log environment for debugging
-    console.log('Environment:', process.env.NODE_ENV);
-    console.log('API URL:', process.env.REACT_APP_API_URL);
-  }, []);
 
   return (
     <>
