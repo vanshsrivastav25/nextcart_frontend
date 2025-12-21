@@ -1,0 +1,239 @@
+/**** Google Font **********/
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+/**** Global Variables **********/
+$primary-font: "DM Sans", sans-serif;
+
+// Light Theme Variables
+$light-bg: #ffffff;
+$light-text: #171718;
+$light-navbar: #f8f9fa;
+
+// Dark Theme Variables
+$dark-bg: #171718;
+$dark-text: #ffffff;
+$dark-navbar: #171718;
+
+// Common Colors
+$primary-color: #43c3d1;
+$primary-color-dark: #36a0ac;
+$secondary-color: #0284ff;
+$tertiary-color: #2f4858;
+
+/**** Theme-based Styles **********/
+:root {
+  // Default Light Theme
+  --bg-color: #{$light-bg};
+  --text-color: #{$light-text};
+  --navbar-bg: #{$light-navbar};
+  --link-color: #{$light-text};
+  --secondary-text: #{$tertiary-color};
+  --muted-text: #6c757d;
+  --product-name-color: #{$light-text};
+  --product-price-color: #{$light-text};
+  --card-bg: #ffffff;
+  --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  --card-shadow-hover: 0 15px 30px rgba(0, 0, 0, 0.15);
+  --section-bg-light: #f8f9fa;
+  --section-bg-dark: #1a1a1a;
+  
+  // Add CSS variables for footer
+  --primary-color-css: #43c3d1;
+  --secondary-color-css: #0284ff;
+}
+
+[data-theme="dark"] {
+  --bg-color: #{$dark-bg};
+  --text-color: #{$dark-text};
+  --navbar-bg: #{$dark-navbar};
+  --link-color: #{$dark-text};
+  --secondary-text: #b0b7c1;
+  --muted-text: #8b949e;
+  --product-name-color: #{$dark-text};
+  --product-price-color: #{$dark-text};
+  --card-bg: #1e1e1e;
+  --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  --card-shadow-hover: 0 15px 30px rgba(0, 0, 0, 0.5);
+  --section-bg-light: #1a1a1a;
+  --section-bg-dark: #171718;
+  
+  // Footer colors remain same
+  --primary-color-css: #43c3d1;
+  --secondary-color-css: #0284ff;
+}
+
+/**** Global Styles **********/
+body {
+  font-family: $primary-font;
+  font-size: 1em;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0;
+  padding: 0;
+}
+
+/**** Typography **********/
+h1 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+h2 {
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+}
+h3 {
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+}
+h4 {
+  font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-color);
+}
+
+/**** Navbar **********/
+.navbar {
+  background-color: var(--navbar-bg) !important;
+  transition: background-color 0.3s ease;
+  padding: 0.5rem 0;
+  
+  .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    
+    @media (min-width: 768px) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+}
+
+/**** Links **********/
+a {
+  text-decoration: none;
+  color: var(--text-color);
+
+  &:hover {
+    color: var(--primary-color-css);
+  }
+}
+
+.nav-link {
+  color: var(--text-color) !important;
+  font-size: 0.90rem;
+  font-weight: 500;
+  
+  &:hover {
+    color: var(--primary-color-css) !important;
+  }
+}
+
+/**** Text Utilities **********/
+.primary-text {
+  color: var(--primary-color-css);
+}
+
+.secondary-text {
+  color: var(--secondary-color-css);
+}
+
+/**** List **********/
+ul {
+  padding-left: 0;
+
+  li {
+    list-style: none;
+  }
+}
+
+/**** Container **********/
+.container {
+  max-width: 1440px;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin: 0 auto;
+  
+  @media (min-width: 640px) {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  @media (min-width: 1024px) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/**** Buttons **********/
+.btn {
+  &.btn-primary {
+    background-color: var(--primary-color-css);
+    border-color: var(--primary-color-css);
+    padding: 0.5rem 1.5rem;
+    color: #ffffff;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+
+    @media (min-width: 768px) {
+      padding: 0.625rem 1.75rem;
+      font-size: 1rem;
+    }
+
+    &:hover {
+      background-color: #36a0ac;
+      border-color: #36a0ac;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(67, 195, 209, 0.3);
+    }
+  }
+
+  &.btn-secondary {
+    background-color: transparent;
+    border-color: var(--text-color);
+    color: var(--text-color);
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+
+    @media (min-width: 768px) {
+      padding: 0.625rem 1.75rem;
+      font-size: 1rem;
+    }
+
+    &:hover {
+      background-color: var(--primary-color-css);
+      border-color: var(--primary-color-css);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/**** Theme Toggle Button **********/
+.theme-toggle {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
+  }
+  
+  [data-theme="dark"] &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+

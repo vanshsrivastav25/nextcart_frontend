@@ -3,7 +3,13 @@ import { createRoot } from 'react-dom/client'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
 import App from './App.jsx'
-import './assets/css/styel.scss'
+
+import './assets/css/style.scss'
+import './assets/css/footer.scss'
+import './assets/css/swiperslide.scss'
+import './assets/css/latestproduct.scss'
+import './assets/css/featuredproducts.scss'
+import './assets/css/shop.scss'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
