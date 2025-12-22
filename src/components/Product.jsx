@@ -1,4 +1,3 @@
-// Product.jsx
 import React, { useState } from 'react';
 import Layout from './common/Layout';
 import ProductImgMain from "../assets/images/Product-1.jpg";
@@ -13,8 +12,10 @@ const Product = () => {
   const [selectedImage, setSelectedImage] = useState(ProductImgMain);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('Detail');
+  const [selectedSize, setSelectedSize] = useState('M'); // Added size state
 
   const colors = ['#1abc9c', '#e74c3c', '#f39c12', '#7f8c8d'];
+  const sizes = ['XS', 'S', 'M', 'L', 'XL']; // Added sizes array
 
   return (
     <Layout>
@@ -84,6 +85,22 @@ const Product = () => {
                     className="color-dot"
                     style={{ backgroundColor: color }}
                   ></span>
+                ))}
+              </div>
+            </div>
+
+            {/* Size Options - Added this section */}
+            <div className="mb-3">
+              <h6>Size</h6>
+              <div className="d-flex gap-2 mt-1">
+                {sizes.map((size) => (
+                  <button
+                    key={size}
+                    className={`size-option ${selectedSize === size ? 'selected' : ''}`}
+                    onClick={() => setSelectedSize(size)}
+                  >
+                    {size}
+                  </button>
                 ))}
               </div>
             </div>
