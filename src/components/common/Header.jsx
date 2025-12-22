@@ -12,7 +12,7 @@ import { AdminAuthContext } from '../context/AdminAuth';
 
 const Header = () => {
     const { isDarkMode, toggleTheme } = useTheme();
-    const {logout} = useContext(AdminAuthContext);
+    const { logout, user } = useContext(AdminAuthContext); // user object or null if not logged in
 
   return (
     <header className='shadow'>
@@ -38,7 +38,7 @@ const Header = () => {
               <div className="d-flex align-items-center ms-3">
                 
                 {/* Cart */}
-                <Link to="/cart " className="nav-icon me-3 position-relative">
+                <Link to="/cart" className="nav-icon me-3 position-relative">
                   <FontAwesomeIcon icon={faShoppingCart} size="lg" />
                   <span className="nav-icon-badge">3</span>
                 </Link>
@@ -65,12 +65,21 @@ const Header = () => {
                     <FontAwesomeIcon icon={faUser} size="lg" />
                   </button>
                   <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
-                    <li><a className="dropdown-item" href="#">My Profile</a></li>
-                    <li><a className="dropdown-item" href="#">Orders</a></li>
-                    <li><a className="dropdown-item" href="#">Wishlist</a></li>
-                    <li><a className="dropdown-item" href="#">Setting</a></li>
-                    <li><hr className="dropdown-divider" /></li>
-                    <li><Link className="dropdown-item" onClick={logout}>Logout</Link></li>
+                    {user ? (
+                      <>
+                        <li><Link className="dropdown-item" to="/profile">My Profile</Link></li>
+                        <li><Link className="dropdown-item" to="/orders">Orders</Link></li>
+                        <li><Link className="dropdown-item" to="/wishlist">Wishlist</Link></li>
+                        <li><Link className="dropdown-item" to="/settings">Settings</Link></li>
+                        <li><hr className="dropdown-divider" /></li>
+                        <li><button className="dropdown-item" onClick={logout}>Logout</button></li>
+                      </>
+                    ) : (
+                      <>
+                        <li><Link className="dropdown-item" to="/login">Login</Link></li>
+                        <li><Link className="dropdown-item" to="/register">Register</Link></li>
+                      </>
+                    )}
                   </ul>
                 </div>
                 
@@ -99,4 +108,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default Header;
