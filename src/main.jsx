@@ -10,6 +10,7 @@ import './assets/css/swiperslide.scss'
 import './assets/css/latestproduct.scss'
 import './assets/css/featuredproducts.scss'
 import './assets/css/shop.scss'
+import './assets/css/product.scss'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
