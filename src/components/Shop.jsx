@@ -94,7 +94,7 @@ const Shop = () => {
 
                     {/* CONTENT */}
                     <div className="product-body">
-                      <Link to="/" className="product-title">
+                      <Link to="/product" className="product-title">
                         Olive Green Casual Shirt
                       </Link>
                       <div className="rating">

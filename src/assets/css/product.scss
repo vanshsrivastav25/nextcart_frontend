@@ -47,7 +47,7 @@
 .thumb-wrapper {
   width: 70px;
   height: 70px;
-  margin-left: 60px;
+  // margin-left: 60px;
   overflow: hidden;
   border-radius: 10px;
   cursor: pointer;
@@ -220,5 +220,27 @@
     width: 32px;
     height: 32px;
     font-size: 0.8rem;
+  }
+}
+
+
+/* SKU */
+.sku {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+.sku span {
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Swiper Fix (design unchanged) */
+.thumb-swiper {
+  height: 320px;
+}
+@media (max-width: 768px) {
+  .thumb-swiper {
+    height: auto;
   }
 }

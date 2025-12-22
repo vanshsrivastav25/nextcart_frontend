@@ -8,6 +8,8 @@ import Product from './components/Product'
 import Login from './components/admin/Login'
 import AdminDashboard from './components/admin/AdminDashboard';
 import { AdminRequireAuth } from './components/admin/AdminRequireAuth';
+import Cart from './components/Cart';
+import Checkout from './components/Checkout';
 
 function App() {
 
@@ -19,6 +21,8 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/shop' element={<Shop />} />
             <Route path='/product' element={<Product />} />
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/checkout' element={<Checkout />} />
 
             <Route path='/admin/login' element={<Login />} />
 
