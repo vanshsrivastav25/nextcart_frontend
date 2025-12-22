@@ -8,9 +8,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons/faShoppingCart';
 import { faMoon, faSun, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { AdminAuthContext } from '../context/AdminAuth';
 
 const Header = () => {
     const { isDarkMode, toggleTheme } = useTheme();
+    const {logout} = useContext(AdminAuthContext);
 
   return (
     <header className='shadow'>
@@ -68,7 +70,7 @@ const Header = () => {
                     <li><a className="dropdown-item" href="#">Wishlist</a></li>
                     <li><a className="dropdown-item" href="#">Setting</a></li>
                     <li><hr className="dropdown-divider" /></li>
-                    <li><a className="dropdown-item">Logout</a></li>
+                    <li><Link className="dropdown-item" onClick={logout}>Logout</Link></li>
                   </ul>
                 </div>
                 

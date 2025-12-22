@@ -1,0 +1,61 @@
+/******** ADMIN LOGIN PAGE ********/
+.admin-login-page {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--section-bg-light);
+  padding: 2rem;
+}
+
+/* LOGIN CARD */
+.login-card {
+  width: 100%;
+  max-width: 400px;   /* 👈 clearly wider now */
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 2.5rem;
+  box-shadow: var(--card-shadow);
+  animation: fadeInUp 0.5s ease;
+}
+
+/* LOGO */
+.admin-login-logo {
+  max-width: 220px;
+  width: 100%;
+  height: auto;
+}
+
+.admin-login-page form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* FORM */
+.login-card h3 {
+  font-weight: 600;
+}
+
+.login-card .form-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.login-card .form-control {
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.9rem;
+}
+
+/* ANIMATION */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
