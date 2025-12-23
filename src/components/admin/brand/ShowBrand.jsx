@@ -9,13 +9,13 @@ import NoState from "../../common/NoState";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const ShowCategory = () => {
-  const [categories, setCategories] = useState([]);
+const ShowBrand = () => {
+  const [brands, setBrands] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchCategories = async () => {
+  const fetchBrands = async () => {
     setLoading(true)
-    const res = await fetch(`${apiUrl}/categories`,{
+    const res = await fetch(`${apiUrl}/brands`,{
       method: 'GET',
       headers: {
         'Content-type' : 'application/json',
@@ -26,16 +26,16 @@ const ShowCategory = () => {
     .then(result => {
       setLoading(false)
       if (result.status == 200) {
-        setCategories(result.data);
+        setBrands(result.data);
       } else {
         console.log("Something went wrong");
       }
     })
   }
 
-  const deleteCategory = async (id) => {
+  const deleteBrand = async (id) => {
     if (confirm("Are you sure want to delete?")) {
-      const res = await fetch(`${apiUrl}/categories/${id}`,{
+      const res = await fetch(`${apiUrl}/brands/${id}`,{
       method: 'GET',
       headers: {
         'Content-type' : 'application/json',
@@ -47,8 +47,8 @@ const ShowCategory = () => {
     .then(result => {
       setLoading(false)
       if (result.status == 200) {
-        const newCategories = categories.filter(category => category.id != id)
-        setCategories(newCategories);
+        const newBrands = brands.filter(brand => brand.id != id)
+        setBrands(newBrands);
         toast.success(result.message)
       } else {
         console.log("Something went wrong");
@@ -58,7 +58,7 @@ const ShowCategory = () => {
   }
 
   useEffect(() => {
-    fetchCategories()
+    fetchBrands()
   }, [])
 
   return (
@@ -75,8 +75,8 @@ const ShowCategory = () => {
             <div className="card admin-card">
               {/* HEADER */}
               <div className="card-header d-flex justify-content-between align-items-center">
-                <h5 className="mb-0">Category List</h5>
-                <Link to={'/admin/categories/create'} className="btn btn-primary btn-sm">
+                <h5 className="mb-0">Brand List</h5>
+                <Link to={'/admin/brands/create'} className="btn btn-primary btn-sm">
                   <FontAwesomeIcon icon={faPlus} className="me-2" />
                   Create
                 </Link>
@@ -98,26 +98,26 @@ const ShowCategory = () => {
                       {loading ? (
                         <tr>
                           <td colSpan="4">
-                            <Loading text="Fetching categories..." />
+                            <Loading text="Fetching brands..." />
                           </td>
                         </tr>
-                      ) : categories.length > 0 ? (
-                        categories.map((category) => (
-                          <tr key={category.id}>
-                            <td>{category.id}</td>
-                            <td>{category.name}</td>
+                      ) : brands.length > 0 ? (
+                        brands.map((brand) => (
+                          <tr key={brand.id}>
+                            <td>{brand.id}</td>
+                            <td>{brand.name}</td>
                             <td>
-                              {category.status == 1 ? (
+                              {brand.status == 1 ? (
                                 <span className="status active">Active</span>
                               ) : (
                                 <span className="status block">Block</span>
                               )}
                             </td>
                             <td className="text-center">
-                              <Link to={`/admin/categories/edit/${category.id}`} className="icon-btn edit">
+                              <Link to={`/admin/brands/edit/${brand.id}`} className="icon-btn edit">
                                 <FontAwesomeIcon icon={faPen} />
                               </Link>
-                              <Link onClick={() => deleteCategory(category.id)} className="icon-btn delete">
+                              <Link onClick={() => deleteBrand(brand.id)} className="icon-btn delete">
                                 <FontAwesomeIcon icon={faTrash} />
                               </Link>
                             </td>
@@ -126,7 +126,7 @@ const ShowCategory = () => {
                       ) : (
                         <tr>
                           <td colSpan="4">
-                            <NoState text="No category found." />
+                            <NoState text="No brand found." />
                           </td>
                         </tr>
                       )}
@@ -143,4 +143,4 @@ const ShowCategory = () => {
   );
 };
 
-export default ShowCategory;
+export default ShowBrand;

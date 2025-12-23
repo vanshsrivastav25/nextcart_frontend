@@ -42,7 +42,7 @@ const AdminSidebar = () => {
             </div>
             <div className="nav-item">
                 <FontAwesomeIcon icon={faTags} />
-                <span>Brands</span>
+                <Link to={`/admin/brands`}>Brands</Link>
             </div>
             <div className="nav-item">
                 <FontAwesomeIcon icon={faBox} />

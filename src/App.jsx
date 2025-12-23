@@ -15,6 +15,10 @@ import ShowCategory from './components/admin/category/ShowCategory';
 import CreateCategory from './components/admin/category/CreateCategory';
 import EditCategory from './components/admin/category/EditCategory';
 
+import ShowBrand from './components/admin/brand/ShowBrand';
+import CreateBrand from './components/admin/brand/CreateBrand';
+import EditBrand from './components/admin/brand/EditBrand';
+
 function App() {
 
   return (
@@ -36,6 +40,7 @@ function App() {
               </AdminRequireAuth>
             }/>
 
+            {/* Admin Categories Routes */}
             <Route path='/admin/categories' element={
               <AdminRequireAuth>
                 <ShowCategory />
@@ -51,6 +56,25 @@ function App() {
             <Route path='/admin/categories/edit/:id' element={
               <AdminRequireAuth>
                 <EditCategory />
+              </AdminRequireAuth>
+            }/>
+
+            {/* Admin Brands Routes */}
+            <Route path='/admin/brands' element={
+              <AdminRequireAuth>
+                <ShowBrand />
+              </AdminRequireAuth>
+            }/>
+
+            <Route path='/admin/brands/create' element={
+              <AdminRequireAuth>
+                <CreateBrand />
+              </AdminRequireAuth>
+            }/>
+
+            <Route path='/admin/brands/edit/:id' element={
+              <AdminRequireAuth>
+                <EditBrand />
               </AdminRequireAuth>
             }/>
           </Routes>
