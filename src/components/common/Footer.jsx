@@ -24,7 +24,7 @@ const Footer = () => {
     <footer className="footer-section">
       {/* Top Section: Features & Newsletter */}
       <div className="footer-top">
-        <div className="container">
+        <div className="footer-container">
           {/* Features */}
           <div className="features-grid">
             <div className="feature-item">
@@ -104,7 +104,7 @@ const Footer = () => {
 
       {/* Main Footer Content */}
       <div className="footer-main">
-        <div className="container">
+        <div className="footer-container">
           <div className="footer-grid">
             {/* Company Info */}
             <div className="footer-col">
@@ -199,7 +199,7 @@ const Footer = () => {
 
       {/* Bottom Section */}
       <div className="footer-bottom">
-        <div className="container">
+        <div className="footer-container">
           <div className="footer-bottom-content">
             <div className="copyright">
               <p className="muted-text mb-0">
