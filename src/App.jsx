@@ -12,6 +12,8 @@ import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 
 import ShowCategory from './components/admin/category/ShowCategory';
+import CreateCategory from './components/admin/category/CreateCategory';
+import EditCategory from './components/admin/category/EditCategory';
 
 function App() {
 
@@ -37,6 +39,18 @@ function App() {
             <Route path='/admin/categories' element={
               <AdminRequireAuth>
                 <ShowCategory />
+              </AdminRequireAuth>
+            }/>
+
+            <Route path='/admin/categories/create' element={
+              <AdminRequireAuth>
+                <CreateCategory />
+              </AdminRequireAuth>
+            }/>
+
+            <Route path='/admin/categories/edit/:id' element={
+              <AdminRequireAuth>
+                <EditCategory />
               </AdminRequireAuth>
             }/>
           </Routes>

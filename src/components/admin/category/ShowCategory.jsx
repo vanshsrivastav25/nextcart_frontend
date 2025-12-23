@@ -1,10 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../common/Layout";
 import AdminSidebar from "../../common/AdminSidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { adminToken, apiUrl } from "../../common/https";
+import Loading from "../../common/Loading";
+import NoState from "../../common/NoState";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ShowCategory = () => {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchCategories = async () => {
+    setLoading(true)
+    const res = await fetch(`${apiUrl}/categories`,{
+      method: 'GET',
+      headers: {
+        'Content-type' : 'application/json',
+        'Accept' : 'application/json',
+        'Authorization' : `Bearer ${adminToken()}`
+      }
+    }).then(res => res.json())
+    .then(result => {
+      setLoading(false)
+      if (result.status == 200) {
+        setCategories(result.data);
+      } else {
+        console.log("Something went wrong");
+      }
+    })
+  }
+
+  const deleteCategory = async (id) => {
+    if (confirm("Are you sure want to delete?")) {
+      const res = await fetch(`${apiUrl}/categories/${id}`,{
+      method: 'GET',
+      headers: {
+        'Content-type' : 'application/json',
+        'Accept' : 'application/json',
+        'Authorization' : `Bearer ${adminToken()}`
+      }
+    })
+    .then(res => res.json())
+    .then(result => {
+      setLoading(false)
+      if (result.status == 200) {
+        const newCategories = categories.filter(category => category.id != id)
+        setCategories(newCategories);
+        toast.success(result.message)
+      } else {
+        console.log("Something went wrong");
+      }
+    })
+    }
+  }
+
+  useEffect(() => {
+    fetchCategories()
+  }, [])
+
   return (
     <Layout>
       <div className="container py-4">
@@ -20,10 +76,10 @@ const ShowCategory = () => {
               {/* HEADER */}
               <div className="card-header d-flex justify-content-between align-items-center">
                 <h5 className="mb-0">Category List</h5>
-                <button className="btn btn-primary btn-sm">
+                <Link to={'/admin/categories/create'} className="btn btn-primary btn-sm">
                   <FontAwesomeIcon icon={faPlus} className="me-2" />
                   Create
-                </button>
+                </Link>
               </div>
 
               {/* TABLE */}
@@ -39,53 +95,41 @@ const ShowCategory = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>3</td>
-                        <td>Kids</td>
-                        <td>
-                          <span className="status active">Active</span>
-                        </td>
-                        <td className="text-center">
-                          <button className="icon-btn edit">
-                            <FontAwesomeIcon icon={faPen} />
-                          </button>
-                          <button className="icon-btn delete">
-                            <FontAwesomeIcon icon={faTrash} />
-                          </button>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>2</td>
-                        <td>Men</td>
-                        <td>
-                          <span className="status active">Active</span>
-                        </td>
-                        <td className="text-center">
-                          <button className="icon-btn edit">
-                            <FontAwesomeIcon icon={faPen} />
-                          </button>
-                          <button className="icon-btn delete">
-                            <FontAwesomeIcon icon={faTrash} />
-                          </button>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>1</td>
-                        <td>Women</td>
-                        <td>
-                          <span className="status active">Active</span>
-                        </td>
-                        <td className="text-center">
-                          <button className="icon-btn edit">
-                            <FontAwesomeIcon icon={faPen} />
-                          </button>
-                          <button className="icon-btn delete">
-                            <FontAwesomeIcon icon={faTrash} />
-                          </button>
-                        </td>
-                      </tr>
+                      {loading ? (
+                        <tr>
+                          <td colSpan="4">
+                            <Loading text="Fetching categories..." />
+                          </td>
+                        </tr>
+                      ) : categories.length > 0 ? (
+                        categories.map((category) => (
+                          <tr key={category.id}>
+                            <td>{category.id}</td>
+                            <td>{category.name}</td>
+                            <td>
+                              {category.status == 1 ? (
+                                <span className="status active">Active</span>
+                              ) : (
+                                <span className="status inactive">Block</span>
+                              )}
+                            </td>
+                            <td className="text-center">
+                              <Link to={`/admin/categories/edit/${category.id}`} className="icon-btn edit">
+                                <FontAwesomeIcon icon={faPen} />
+                              </Link>
+                              <Link onClick={() => deleteCategory(category.id)} className="icon-btn delete">
+                                <FontAwesomeIcon icon={faTrash} />
+                              </Link>
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="4">
+                            <NoState text="No category found." />
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>
