@@ -1,0 +1,61 @@
+/******** USER REGISTER PAGE ********/
+.user-register-page {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--section-bg-light);
+  padding: 2rem;
+}
+
+/* REGISTER CARD */
+.register-card {
+  width: 100%;
+  max-width: 400px;   /* 👈 clearly wider now */
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 2.5rem;
+  box-shadow: var(--card-shadow);
+  animation: fadeInUp 0.5s ease;
+}
+
+/* LOGO */
+.user-register-logo {
+  max-width: 220px;
+  width: 100%;
+  height: auto;
+}
+
+.user-register-page form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* FORM */
+.register-card h3 {
+  font-weight: 600;
+}
+
+.register-card .form-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.register-card .form-control {
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.9rem;
+}
+
+/* ANIMATION */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

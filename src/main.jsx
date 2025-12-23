@@ -19,13 +19,18 @@ import './assets/css/createcategory.scss'
 
 import './assets/css/loading.scss'
 import './assets/css/login.scss'
+import './assets/css/userlogin.scss'
+import './assets/css/userregister.scss'
 
 import { AdminAuthProvider } from './components/context/AdminAuth.jsx';
+import { AuthProvider } from './components/context/UserAuth.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AdminAuthProvider>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </AdminAuthProvider>
   </StrictMode>,
 )

@@ -18,6 +18,8 @@ import EditCategory from './components/admin/category/EditCategory';
 import ShowBrand from './components/admin/brand/ShowBrand';
 import CreateBrand from './components/admin/brand/CreateBrand';
 import EditBrand from './components/admin/brand/EditBrand';
+import UserRegister from './components/UserRegister';
+import UserLogin from './components/UserLogin';
 
 function App() {
 
@@ -31,6 +33,9 @@ function App() {
             <Route path='/product' element={<Product />} />
             <Route path='/cart' element={<Cart />} />
             <Route path='/checkout' element={<Checkout />} />
+
+            <Route path='/account/register' element={<UserRegister />} />
+            <Route path='/account/login' element={<UserLogin />} />
 
             <Route path='/admin/login' element={<Login />} />
 

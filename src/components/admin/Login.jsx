@@ -1,49 +1,49 @@
-import React, { useContext } from 'react'
-import Layout from '../common/Layout'
-import { useForm } from 'react-hook-form'
-import { apiUrl } from '../common/https'
-import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
-import { AdminAuthContext } from '../context/AdminAuth'
+import React, { useContext } from "react";
+import Layout from "../common/Layout";
+import { useForm } from "react-hook-form";
+import { apiUrl } from "../common/https";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { AdminAuthContext } from "../context/AdminAuth";
 
-import logo from '../../assets/images/logo.png' // 👈 YOUR WEBSITE LOGO
+import logo from "../../assets/images/logo.png"; // 👈 YOUR WEBSITE LOGO
 
 const Login = () => {
-  const { login } = useContext(AdminAuthContext)
+  const { login } = useContext(AdminAuthContext);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     await fetch(`${apiUrl}/admin/login`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     })
-      .then(res => res.json())
-      .then(result => {
+      .then((res) => res.json())
+      .then((result) => {
         if (result.status === 200) {
           const adminInfo = {
             token: result.token,
             id: result.id,
             name: result.name,
-          }
+          };
 
-          localStorage.setItem('adminInfo', JSON.stringify(adminInfo))
-          login(adminInfo)
-          navigate('/admin/dashboard')
+          localStorage.setItem("adminInfo", JSON.stringify(adminInfo));
+          login(adminInfo);
+          navigate("/admin/dashboard");
         } else {
-          toast.error(result.message)
+          toast.error(result.message);
         }
-      })
-  }
+      });
+  };
 
   return (
     <Layout>
@@ -103,6 +103,6 @@ const Login = () => {
       </div>
     </Layout>
   )
-}
+};
 
-export default Login
+export default Login;
