@@ -1,0 +1,197 @@
+/************************************
+ ADMIN CATEGORY LIST – COMPLETE CSS
+************************************/
+
+/* CARD */
+.admin-card {
+  background: var(--card-bg);
+  border-radius: 14px;
+  box-shadow: var(--card-shadow);
+  border: none;
+  overflow: hidden;
+}
+
+/* HEADER */
+.admin-card .card-header {
+  background: linear-gradient(
+    135deg,
+    #1f2933,
+    #111827
+  );
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  border: none;
+}
+
+.admin-card .card-header h5 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* CREATE BUTTON */
+.admin-card .btn-primary {
+  background: #43c3d1;
+  border: none;
+  padding: 0.45rem 1.2rem;
+  font-size: 0.85rem;
+  border-radius: 8px;
+}
+
+.admin-card .btn-primary:hover {
+  background: #36a0ac;
+}
+
+/* TABLE WRAPPER */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+/* TABLE HEAD */
+.admin-table thead {
+  background: #f3f4f6;
+}
+
+.admin-table th {
+  padding: 0.75rem 1.25rem;
+  text-align: left;
+  font-weight: 600;
+  color: #9ca3af;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* TABLE BODY */
+.admin-table tbody tr {
+  transition: background 0.25s ease;
+}
+
+.admin-table td {
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: #111827;
+  background: #ffffff;
+}
+
+/* ROW HOVER */
+.admin-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* STATUS BADGE */
+.status {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status.active {
+  background: rgba(67, 195, 209, 0.15);
+  color: #43c3d1;
+}
+
+/* ACTION BUTTONS */
+.icon-btn {
+  background: transparent;
+  border: none;
+  font-size: 0.9rem;
+  padding: 6px;
+  margin: 0 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.icon-btn.edit {
+  color: #0284ff;
+}
+
+.icon-btn.delete {
+  color: #dc3545;
+}
+
+.icon-btn.edit:hover {
+  background: rgba(2, 132, 255, 0.15);
+}
+
+.icon-btn.delete:hover {
+  background: rgba(220, 53, 69, 0.15);
+}
+
+/****************************************
+ DARK MODE OVERRIDES (IMPORTANT PART)
+****************************************/
+
+[data-theme="dark"] .admin-card {
+  background: #1e1e1e;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Header stays dark */
+[data-theme="dark"] .admin-card .card-header {
+  background: linear-gradient(
+    135deg,
+    #111827,
+    #000000
+  );
+}
+
+/* Table full dark */
+[data-theme="dark"] .admin-table {
+  background: #1e1e1e;
+}
+
+[data-theme="dark"] .admin-table thead {
+  background: #111827;
+}
+
+[data-theme="dark"] .admin-table th {
+  color: #9ca3af;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* TD FIX (MOST IMPORTANT) */
+[data-theme="dark"] .admin-table td {
+  background: #1e1e1e;
+  color: #e5e7eb;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Row hover */
+[data-theme="dark"] .admin-table tbody tr:hover {
+  background: #262626;
+}
+
+/* Status badge */
+[data-theme="dark"] .status.active {
+  background: rgba(67, 195, 209, 0.25);
+  color: #43c3d1;
+}
+
+/* Action hover */
+[data-theme="dark"] .icon-btn.edit:hover {
+  background: rgba(2, 132, 255, 0.25);
+}
+
+[data-theme="dark"] .icon-btn.delete:hover {
+  background: rgba(220, 53, 69, 0.25);
+}
+
+/****************************************
+ RESPONSIVE
+****************************************/
+
+@media (max-width: 768px) {
+  .admin-table th,
+  .admin-table td {
+    padding: 0.65rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .admin-card .card-header h5 {
+    font-size: 1rem;
+  }
+}

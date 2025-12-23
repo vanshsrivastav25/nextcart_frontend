@@ -13,6 +13,10 @@ import './assets/css/shop.scss'
 import './assets/css/product.scss'
 import './assets/css/cart.scss'
 import './assets/css/checkout.scss'
+import './assets/css/admindashboard.scss'
+import './assets/css/showcategory.scss'
+
+
 import './assets/css/login.scss'
 
 import { AdminAuthProvider } from './components/context/AdminAuth.jsx';

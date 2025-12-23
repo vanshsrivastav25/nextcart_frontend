@@ -11,6 +11,8 @@ import { AdminRequireAuth } from './components/admin/AdminRequireAuth';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 
+import ShowCategory from './components/admin/category/ShowCategory';
+
 function App() {
 
   return (
@@ -29,6 +31,12 @@ function App() {
             <Route path='/admin/dashboard' element={
               <AdminRequireAuth>
                 <AdminDashboard />
+              </AdminRequireAuth>
+            }/>
+
+            <Route path='/admin/categories' element={
+              <AdminRequireAuth>
+                <ShowCategory />
               </AdminRequireAuth>
             }/>
           </Routes>
