@@ -17,6 +17,7 @@ import './assets/css/admindashboard.scss'
 import './assets/css/adminsidebar.scss'
 import './assets/css/showcategory.scss'
 import './assets/css/createcategory.scss'
+import './assets/css/createproduct.scss'
 
 import './assets/css/loading.scss'
 import './assets/css/login.scss'

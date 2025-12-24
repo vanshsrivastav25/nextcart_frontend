@@ -1,15 +1,22 @@
 import { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { ThemeProvider } from './components/contexts/ThemeContext'
+import { AdminRequireAuth } from './components/admin/AdminRequireAuth';
+import { RequireAuth } from './components/RequireAuth';
+
 import Home from './components/Home'
 import Shop from './components/Shop'
-import { ThemeProvider } from './components/contexts/ThemeContext'
 import Product from './components/Product'
-import Login from './components/admin/Login'
-import AdminDashboard from './components/admin/AdminDashboard';
-import { AdminRequireAuth } from './components/admin/AdminRequireAuth';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
+
+import Login from './components/admin/Login'
+import AdminDashboard from './components/admin/AdminDashboard';
+
+import UserLogin from './components/user/UserLogin';
+import UserRegister from './components/user/UserRegister';
+import UserProfile from './components/user/UserProfile';
 
 import ShowCategory from './components/admin/category/ShowCategory';
 import CreateCategory from './components/admin/category/CreateCategory';
@@ -19,11 +26,9 @@ import ShowBrand from './components/admin/brand/ShowBrand';
 import CreateBrand from './components/admin/brand/CreateBrand';
 import EditBrand from './components/admin/brand/EditBrand';
 
-import UserRegister from './components/user/UserRegister';
-import UserLogin from './components/user/UserLogin';
-import UserProfile from './components/user/UserProfile';
-
-import { RequireAuth } from './components/RequireAuth';
+import ShowProduct from './components/admin/product/ShowProduct';
+import CreateProduct from './components/admin/product/CreateProduct';
+import EditProduct from './components/admin/product/EditProduct';
 
 function App() {
 
@@ -92,6 +97,25 @@ function App() {
             <Route path='/admin/brands/edit/:id' element={
               <AdminRequireAuth>
                 <EditBrand />
+              </AdminRequireAuth>
+            }/>
+
+            {/* Admin Products Routes */}
+            <Route path='/admin/products' element={
+              <AdminRequireAuth>
+                <ShowProduct />
+              </AdminRequireAuth>
+            }/>
+
+            <Route path='/admin/products/create' element={
+              <AdminRequireAuth>
+                <CreateProduct />
+              </AdminRequireAuth>
+            }/>
+
+            <Route path='/admin/products/edit/:id' element={
+              <AdminRequireAuth>
+                <EditProduct />
               </AdminRequireAuth>
             }/>
           </Routes>

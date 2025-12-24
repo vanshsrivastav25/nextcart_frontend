@@ -1,0 +1,198 @@
+/**** Admin Card **********/
+.admin-card {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  overflow: hidden;
+
+  &:hover {
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  .card-header {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 1rem 1.25rem;
+
+    h5 {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+}
+
+/**** Dark Header Border Fix **********/
+[data-theme="dark"] {
+  .admin-card {
+    .card-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  }
+}
+
+/**** Form Controls **********/
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--secondary-text);
+  margin-bottom: 6px;
+}
+
+.form-control,
+.form-select,
+textarea {
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: var(--text-color);
+  font-size: 0.9rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+
+  &:focus {
+    border-color: var(--primary-color-css);
+    box-shadow: 0 0 0 2px rgba(67, 195, 209, 0.2);
+    outline: none;
+    background-color: transparent;
+  }
+}
+
+[data-theme="dark"] {
+  .form-control,
+  .form-select,
+  textarea {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/**** Section Titles **********/
+.card-body h6 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-color);
+  position: relative;
+  padding-left: 10px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 4px;
+    height: 16px;
+    background-color: var(--primary-color-css);
+    transform: translateY(-50%);
+    border-radius: 4px;
+  }
+}
+
+/**** Invalid Feedback **********/
+.invalid-feedback {
+  font-size: 0.75rem;
+}
+
+/**** Jodit Editor Theme Fix **********/
+.jodit-container {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.jodit-toolbar__box {
+  background-color: var(--section-bg-light);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.jodit-workplace {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+[data-theme="dark"] {
+  .jodit-toolbar__box {
+    background-color: #1f1f1f;
+  }
+
+  .jodit-workplace {
+    background-color: #1e1e1e;
+    color: #ffffff;
+  }
+}
+
+/**** Buttons **********/
+.admin-card .btn-primary {
+  margin-top: 1rem;
+  min-width: 160px;
+}
+
+
+/* Sidebar fixed, content scroll */
+.admin-layout {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.admin-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.admin-content {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+/* Admin Card */
+.admin-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+}
+
+/* Inputs & textarea dark fix */
+.form-control,
+.form-select,
+textarea {
+  background: transparent;
+  color: var(--text-color) !important;
+}
+
+::placeholder {
+  color: var(--muted-text);
+}
+
+/* Jodit Editor fix */
+.jodit-wysiwyg {
+  background: var(--card-bg) !important;
+  color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .jodit-wysiwyg {
+  caret-color: #ffffff;
+}
+
+/* Section titles */
+.card-body h6 {
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-left: 10px;
+}
+
+.card-body h6::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 4px;
+  height: 16px;
+  background: var(--primary-color-css);
+}
