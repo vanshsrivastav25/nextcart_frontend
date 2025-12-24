@@ -22,7 +22,9 @@ import './assets/css/loading.scss'
 import './assets/css/login.scss'
 import './assets/css/userlogin.scss'
 import './assets/css/userregister.scss'
-import './assets/css/userprofile.scss'
+import './assets/css/usersidebar.scss'
+
+
 import { AdminAuthProvider } from './components/contexts/AdminAuth.jsx';
 import { AuthProvider } from './components/contexts/UserAuth.jsx';
 

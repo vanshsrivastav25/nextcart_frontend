@@ -22,10 +22,8 @@ import EditBrand from './components/admin/brand/EditBrand';
 import UserRegister from './components/user/UserRegister';
 import UserLogin from './components/user/UserLogin';
 import UserProfile from './components/user/UserProfile';
-import UserDashboard from './components/user/UserDashboard';
-import Setting from './components/user/Setting';
 
-import { UserRequireAuth } from './components/contexts/UserAuth'
+import { RequireAuth } from './components/RequireAuth';
 
 function App() {
 
@@ -44,23 +42,11 @@ function App() {
             <Route path='/account/register' element={<UserRegister />} />
             <Route path='/account/login' element={<UserLogin />} />
 
-            <Route path="/account/profile" element={
-              <UserRequireAuth>
+             <Route path='/account/profile' element={
+              <RequireAuth>
                 <UserProfile />
-              </UserRequireAuth>
-            } />
-
-            <Route path="/account/dashboard" element={
-              <UserRequireAuth>
-                <UserDashboard />
-              </UserRequireAuth>
-            } />
-
-            <Route path="/account/setting" element={
-              <UserRequireAuth>
-                <Setting />
-              </UserRequireAuth>
-            } />
+              </RequireAuth>
+            }/>
 
             {/* Admin  Routes */}
             <Route path='/admin/login' element={<Login />} />

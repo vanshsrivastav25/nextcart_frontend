@@ -17,7 +17,7 @@ const Header = () => {
 
     const handleLogout = () => {
       logout();
-      navigate('/account/login');
+      navigate('/');
     };
 
   return (
@@ -73,10 +73,10 @@ const Header = () => {
                   <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
                     {user ? (
                       <>
-                        <li><Link className="dropdown-item" to="/account/profile">My Profile</Link></li>
+                        <li><Link className="dropdown-item" to="/account/profile">My Account</Link></li>
                         <li><Link className="dropdown-item" to="/orders">Orders</Link></li>
                         <li><Link className="dropdown-item" to="/wishlist">Wishlist</Link></li>
-                        <li><Link className="dropdown-item" to="/account/setting">Settings</Link></li>
+                        <li><Link className="dropdown-item" to="/setting">Settings</Link></li>
                         <li><hr className="dropdown-divider" /></li>
                         <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
                       </>

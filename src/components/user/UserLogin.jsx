@@ -40,7 +40,7 @@ const UserLogin = () => {
 
             localStorage.setItem("userInfo",JSON.stringify(userInfo));
             login(userInfo);
-            navigate("/account/dashboard");
+            navigate("/");
         } else {
             toast.error(result.message);
         }
