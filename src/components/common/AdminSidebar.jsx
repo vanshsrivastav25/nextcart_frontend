@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
-import { AdminAuthContext } from '../context/AdminAuth';
+import { Link, useLocation } from 'react-router-dom';
+import { AdminAuthContext } from '../contexts/AdminAuth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faTachometerAlt, 
@@ -11,75 +11,112 @@ import {
   faUsers,
   faShippingFast,
   faChartLine,
-  faKey
+  faKey,
+  faSignOutAlt,
+  faBars,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons';
 
 const AdminSidebar = () => {
-  const {logout } = useContext(AdminAuthContext);
+  const { logout } = useContext(AdminAuthContext);
+  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState('dashboard');
+
+  // Determine active item based on current route
+  useEffect(() => {
+    const path = location.pathname;
+    if (path.includes('/admin/categories')) setActiveItem('categories');
+    else if (path.includes('/admin/brands')) setActiveItem('brands');
+    else if (path.includes('/admin/products')) setActiveItem('products');
+    else if (path.includes('/admin/orders')) setActiveItem('orders');
+    else if (path.includes('/admin/users')) setActiveItem('users');
+    else if (path.includes('/admin/shipping')) setActiveItem('shipping');
+    else if (path.includes('/admin/analytics')) setActiveItem('analytics');
+    else if (path.includes('/admin/password')) setActiveItem('password');
+    else setActiveItem('dashboard');
+  }, [location]);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeSidebar = () => {
+    if (window.innerWidth <= 768) {
+      setIsOpen(false);
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+    closeSidebar();
+  };
+
+  const navItems = [
+    { id: 'dashboard', icon: faTachometerAlt, label: 'Dashboard', path: '/admin' },
+    { id: 'categories', icon: faLayerGroup, label: 'Categories', path: '/admin/categories' },
+    { id: 'brands', icon: faTags, label: 'Brands', path: '/admin/brands' },
+    { id: 'products', icon: faBox, label: 'Products', path: '/admin/products' },
+    { id: 'orders', icon: faShoppingCart, label: 'Orders', path: '/admin/orders' },
+    { id: 'users', icon: faUsers, label: 'Users', path: '/admin/users' },
+    { id: 'shipping', icon: faShippingFast, label: 'Shipping', path: '/admin/shipping' },
+    { id: 'analytics', icon: faChartLine, label: 'Analytics', path: '/admin/analytics' },
+    { id: 'password', icon: faKey, label: 'Password', path: '/admin/password' },
+  ];
 
   return (
-     <div className="admin-sidebar">
-        {/* Compact User Profile */}
-        <div className="admin-profile-compact">
-        <div className="profile-avatar-small">
-            {/* <img src='' alt='Admin Name' /> */}
-        </div>
-        <div className="profile-info-small">
-            <h6 className="profile-name-small">Admin Name</h6>
-            <span className="profile-role-small">Admin Role</span>
-        </div>
+    <>
+      {/* Mobile Toggle Button */}
+      <button className="sidebar-toggle" onClick={toggleSidebar}>
+        <FontAwesomeIcon icon={isOpen ? faTimes : faBars} />
+      </button>
+
+      {/* Overlay for mobile */}
+      <div 
+        className={`sidebar-overlay ${isOpen ? 'active' : ''}`} 
+        onClick={closeSidebar}
+      />
+
+      <div className={`admin-sidebar ${isOpen ? 'open' : ''}`}>
+        {/* Sidebar Header */}
+        <div className="sidebar-header">
+          <div className="admin-welcome">
+            <h2>Welcome <span>Nirmal</span></h2>
+          </div>
+          <p className="admin-role">Administrator</p>
         </div>
 
         {/* Sidebar Navigation */}
         <div className="sidebar-nav">
-            <div className="nav-item active">
-                <FontAwesomeIcon icon={faTachometerAlt} />
-                <span>Dashboard</span>
+          <div className="section-title">Dashboard</div>
+          
+          {navItems.map((item) => (
+            <div 
+              key={item.id}
+              className={`nav-item ${activeItem === item.id ? 'active' : ''}`}
+              onClick={() => {
+                setActiveItem(item.id);
+                closeSidebar();
+              }}
+            >
+              <FontAwesomeIcon icon={item.icon} />
+              <Link to={item.path}>{item.label}</Link>
             </div>
-            <div className="nav-item">
-                <FontAwesomeIcon icon={faLayerGroup} />
-                <Link to={`/admin/categories`}>Categories</Link>
-            </div>
-            <div className="nav-item">
-                <FontAwesomeIcon icon={faTags} />
-                <Link to={`/admin/brands`}>Brands</Link>
-            </div>
-            <div className="nav-item">
-                <FontAwesomeIcon icon={faBox} />
-                <span>Products</span>
-            </div>
-            <div className="nav-item">
-                <FontAwesomeIcon icon={faShoppingCart} />
-                <span>Orders</span>
-            </div>
-            <div className="nav-item">
-                <FontAwesomeIcon icon={faUsers} />
-                <span>Users</span>
-            </div>
-            <div className="nav-item">
-                <FontAwesomeIcon icon={faShippingFast} />
-                <span>Shipping</span>
-            </div>
-            <div className="nav-item">
-                <FontAwesomeIcon icon={faChartLine} />
-                <span>Analytics</span>
-            </div>
-            <div className="nav-item">
-                <FontAwesomeIcon icon={faKey} />
-                <span>Password</span>
-            </div>
+          ))}
         </div>
 
-        {/* Logout Button */}
+        {/* Logout Button - Separated at bottom */}
         <div className="sidebar-footer">
-        <div className="nav-item logout">
-            <i className="fas fa-sign-out-alt"></i>
-            <span>
-            <Link onClick={logout}>Logout</Link>
-            </span>
+          <div 
+            className="nav-item logout" 
+            onClick={handleLogout}
+          >
+            <FontAwesomeIcon icon={faSignOutAlt} />
+            <span>Logout</span>
+          </div>
         </div>
-        </div>
-    </div>
+      </div>
+    </>
   )
 }
 

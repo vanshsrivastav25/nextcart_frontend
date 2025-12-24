@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { apiUrl } from "../common/https";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { AdminAuthContext } from "../context/AdminAuth";
+import { AdminAuthContext } from "../contexts/AdminAuth";
 
 import logo from "../../assets/images/logo.png"; // 👈 YOUR WEBSITE LOGO
 

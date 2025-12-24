@@ -18,8 +18,14 @@ import EditCategory from './components/admin/category/EditCategory';
 import ShowBrand from './components/admin/brand/ShowBrand';
 import CreateBrand from './components/admin/brand/CreateBrand';
 import EditBrand from './components/admin/brand/EditBrand';
-import UserRegister from './components/UserRegister';
-import UserLogin from './components/UserLogin';
+
+import UserRegister from './components/user/UserRegister';
+import UserLogin from './components/user/UserLogin';
+import UserProfile from './components/user/UserProfile';
+import UserDashboard from './components/user/UserDashboard';
+import Setting from './components/user/Setting';
+
+import { UserRequireAuth } from './components/contexts/UserAuth'
 
 function App() {
 
@@ -34,9 +40,29 @@ function App() {
             <Route path='/cart' element={<Cart />} />
             <Route path='/checkout' element={<Checkout />} />
 
+            {/* User Account Routes */}
             <Route path='/account/register' element={<UserRegister />} />
             <Route path='/account/login' element={<UserLogin />} />
 
+            <Route path="/account/profile" element={
+              <UserRequireAuth>
+                <UserProfile />
+              </UserRequireAuth>
+            } />
+
+            <Route path="/account/dashboard" element={
+              <UserRequireAuth>
+                <UserDashboard />
+              </UserRequireAuth>
+            } />
+
+            <Route path="/account/setting" element={
+              <UserRequireAuth>
+                <Setting />
+              </UserRequireAuth>
+            } />
+
+            {/* Admin  Routes */}
             <Route path='/admin/login' element={<Login />} />
 
             <Route path='/admin/dashboard' element={

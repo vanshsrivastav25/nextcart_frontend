@@ -14,6 +14,7 @@ import './assets/css/product.scss'
 import './assets/css/cart.scss'
 import './assets/css/checkout.scss'
 import './assets/css/admindashboard.scss'
+import './assets/css/adminsidebar.scss'
 import './assets/css/showcategory.scss'
 import './assets/css/createcategory.scss'
 
@@ -21,9 +22,9 @@ import './assets/css/loading.scss'
 import './assets/css/login.scss'
 import './assets/css/userlogin.scss'
 import './assets/css/userregister.scss'
-
-import { AdminAuthProvider } from './components/context/AdminAuth.jsx';
-import { AuthProvider } from './components/context/UserAuth.jsx';
+import './assets/css/userprofile.scss'
+import { AdminAuthProvider } from './components/contexts/AdminAuth.jsx';
+import { AuthProvider } from './components/contexts/UserAuth.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

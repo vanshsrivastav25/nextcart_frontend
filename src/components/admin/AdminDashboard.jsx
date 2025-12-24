@@ -13,7 +13,7 @@ const AdminDashboard = () => {
           </div>
 
           {/* RIGHT CONTENT */}
-          <div className="col-lg-9 col-md-8">
+          <div className="col-lg-9 col-md-8 mt-3">
             {/* Dashboard Header */}
             <div className="dashboard-header">
               <h3 className="dashboard-title">Dashboard Overview</h3>

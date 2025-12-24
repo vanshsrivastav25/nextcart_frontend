@@ -1,0 +1,124 @@
+/***** PROFILE PAGE *****/
+.profile-wrapper {
+  display: flex;
+  gap: 2rem;
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+}
+
+/* LEFT SIDEBAR */
+.profile-sidebar {
+  width: 260px;
+  background: var(--section-bg-light);
+  border-radius: 18px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.profile-avatar-lg {
+  width: 90px;
+  height: 90px;
+  background: var(--primary-color-css);
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 600;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.profile-sidebar h4 {
+  margin-bottom: 0.25rem;
+}
+
+.profile-menu {
+  margin-top: 2rem;
+}
+
+.profile-menu li {
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.profile-menu li.active {
+  background: rgba(67, 195, 209, 0.15);
+  color: var(--primary-color-css);
+  font-weight: 600;
+}
+
+.profile-menu li:hover {
+  background: rgba(67, 195, 209, 0.1);
+}
+
+.profile-menu li.logout {
+  color: #ff6b6b;
+}
+
+/* RIGHT CONTENT */
+.profile-content {
+  flex: 1;
+  background: var(--card-bg);
+  padding: 1rem 2rem;
+  border-radius: 18px;
+}
+
+.profile-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.profile-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-form label {
+  font-size: 0.8rem;
+  color: var(--muted-text);
+  margin-bottom: 0.4rem;
+}
+
+.profile-form input {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+  background: var(--section-bg-light);
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .profile-form input {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ACTION BUTTONS */
+.profile-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .profile-wrapper {
+    flex-direction: column;
+  }
+
+  .profile-sidebar {
+    width: 100%;
+  }
+
+  .profile-form {
+    grid-template-columns: 1fr;
+  }
+}

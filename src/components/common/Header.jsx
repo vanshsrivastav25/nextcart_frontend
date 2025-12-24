@@ -7,12 +7,18 @@ import Logo from '../../assets/images/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons/faShoppingCart';
 import { faMoon, faSun, faUser } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
-import { AdminAuthContext } from '../context/AdminAuth';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/UserAuth';
 
 const Header = () => {
     const { isDarkMode, toggleTheme } = useTheme();
-    const { logout, user } = useContext(AdminAuthContext); // user object or null if not logged in
+    const { user, logout } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+      logout();
+      navigate('/account/login');
+    };
 
   return (
     <header className='shadow'>
@@ -67,17 +73,17 @@ const Header = () => {
                   <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
                     {user ? (
                       <>
-                        <li><Link className="dropdown-item" to="/profile">My Profile</Link></li>
+                        <li><Link className="dropdown-item" to="/account/profile">My Profile</Link></li>
                         <li><Link className="dropdown-item" to="/orders">Orders</Link></li>
                         <li><Link className="dropdown-item" to="/wishlist">Wishlist</Link></li>
-                        <li><Link className="dropdown-item" to="/settings">Settings</Link></li>
+                        <li><Link className="dropdown-item" to="/account/setting">Settings</Link></li>
                         <li><hr className="dropdown-divider" /></li>
-                        <li><button className="dropdown-item" onClick={logout}>Logout</button></li>
+                        <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
                       </>
                     ) : (
                       <>
-                        <li><Link className="dropdown-item" to="/login">Login</Link></li>
-                        <li><Link className="dropdown-item" to="/register">Register</Link></li>
+                        <li><Link className="dropdown-item" to="/account/login">Login</Link></li>
+                        <li><Link className="dropdown-item" to="/account/register">Register</Link></li>
                       </>
                     )}
                   </ul>

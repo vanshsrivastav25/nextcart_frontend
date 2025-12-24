@@ -1,63 +1,70 @@
-import React, { useContext } from 'react'
-import Layout from './common/Layout'
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import { apiUrl } from './common/https'
-import { toast } from 'react-toastify';
+import React from "react";
+import Layout from "../common/Layout";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { apiUrl } from "../common/https"
+import logo from "../../assets/images/logo.png"; 
+import { toast } from "react-toastify";
 
-import logo from '../assets/images/logo.png';
-import { AuthContext } from './context/UserAuth';
-
-const UserLogin = () => {
-    const {
+const UserRegister = () => {
+  const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const {login} = useContext(AuthContext);
-
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-
-    const res = await fetch(`${apiUrl}/login`, {
+    await fetch(`${apiUrl}/register`, {
         method: "POST",
         headers: {
-            "Content-type": "application/json",
+            "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
     })
-    .then((res) => res.json())
-    .then((result) => {
-
-        if (result.status == 200) {
-            const userInfo = {
-                token: result.token,
-                id: result.id,
-                name: result.name,
-            };
-
-            localStorage.setItem("userInfo",JSON.stringify(userInfo));
-            login(userInfo);
-            navigate("/account/dashboard");
+        .then((res) => res.json())
+        .then((result) => {
+        if (result.status === 200) {
+            toast.success(result.message);
+            navigate('/account/login');
         } else {
-            toast.error(result.message);
+            const formErrors = result.errors;
+            Object.keys(formErrors).forEach((field) => {
+            setError(field, { message: formErrors[field][0] });
+            })
         }
     });
-};
+  };
 
   return (
     <Layout>
-        <div className="user-login-page">
+        <div className="user-register-page">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="login-card">
+                <div className="register-card">
                     {/* LOGO */}
                     <div className="text-center mb-3">
-                        <img src={logo} alt="Logo" className="user-login-logo" />
+                        <img src={logo} alt="Logo" className="user-register-logo" />
                     </div>
         
-                    <h3 className="text-center mb-4">Login</h3>
+                    <h3 className="text-center mb-4">Register</h3>
+
+                    <div className="mb-4">
+                        <label className="form-label">Name</label>
+                        <input
+                        {...register('name', {
+                            required: 'The name field is required',
+                        })}
+                        type="text"
+                        className={`form-control ${errors.name && 'is-invalid'}`}
+                        placeholder="Enter Name"
+                        />
+                        {errors.name && (
+                        <div className="invalid-feedback">
+                            {errors.name.message}
+                        </div>
+                        )}
+                    </div>
         
                     <div className="mb-3">
                         <label className="form-label">Email</label>
@@ -98,17 +105,17 @@ const UserLogin = () => {
                     </div>
         
                     <button className="btn btn-primary w-100">
-                        Login
+                        Register
                     </button>
 
                     <div className="d-flex pt-3 justify-content-center">
-                        Don't have an account ? &nbsp; <Link to="/account/register">Register</Link>
+                        Already have an account ? &nbsp; <Link to="/account/login">Login</Link>
                     </div>
                 </div>
             </form>
         </div>
     </Layout>
   )
-}
+};
 
-export default UserLogin
+export default UserRegister;
