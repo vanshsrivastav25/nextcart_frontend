@@ -35,28 +35,29 @@ const ShowProduct = () => {
   };
 
   const deleteProduct = async (id) => {
-    if (confirm("Are you sure want to delete?")) {
-      const res = await fetch(`${apiUrl}/products/${id}`,{
-      method: 'GET',
+    if (!window.confirm("Are you sure want to delete?")) return;
+
+    setLoading(true);
+
+    const res = await fetch(`${apiUrl}/products/${id}`, {
+      method: "DELETE",
       headers: {
-        'Content-type' : 'application/json',
-        'Accept' : 'application/json',
-        'Authorization' : `Bearer ${adminToken()}`
-      }
-    })
-    .then(res => res.json())
-    .then(result => {
-      setLoading(false)
-      if (result.status == 200) {
-        const newProducts = products.filter(product => product.id != id)
-        setProducts(newProducts);
-        toast.success(result.message)
-      } else {
-        console.log("Something went wrong");
-      }
-    })
+        Accept: "application/json",
+        Authorization: `Bearer ${adminToken()}`,
+      },
+    });
+
+    const result = await res.json();
+    setLoading(false);
+
+    if (result.status === 200) {
+      setProducts(products.filter(p => p.id !== id));
+      toast.success(result.message);
+    } else {
+      toast.error("Delete failed");
     }
-  }
+  };
+
 
   useEffect(() => {
     fetchProducts();
@@ -76,7 +77,7 @@ const ShowProduct = () => {
             <div className="card admin-card">
               {/* HEADER */}
               <div className="card-header d-flex justify-content-between align-items-center">
-                <h5 className="mb-0">Products</h5>
+                <h5 className="mb-0">Products List</h5>
                 <Link to='/admin/products/create' className="btn btn-primary btn-sm">
                   <FontAwesomeIcon icon={faPlus} className="me-2" />
                   Create

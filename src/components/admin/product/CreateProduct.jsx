@@ -38,10 +38,11 @@ const CreateProduct = () => {
 
     const payload = {
       ...data,
-      gallery: galleryImages.map((img) => img.id),
-      default_image:
-        galleryImages.find((img) => img.is_default)?.id || null,
+      price: Number(data.price),
+      quantity: Number(data.quantity),
+      gallery: galleryImages.map(img => img.id),
     };
+
 
     setDisable(true);
 
@@ -159,7 +160,7 @@ const CreateProduct = () => {
           <div className="col-lg-9 col-md-8">
             <div className="card admin-card">
               <div className="card-header d-flex justify-content-between">
-                <h5>Products / Create</h5>
+                <h5>Create Products</h5>
                 <Link to="/admin/products" className="btn btn-primary btn-sm">
                   <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
                   Back
@@ -197,7 +198,7 @@ const CreateProduct = () => {
                     <div className="col-md-6 mb-3">
                       <label className="form-label">Brand</label>
                       <select
-                        {...register("brand", { required: "Brand is required" })}
+                        {...register("brand", {  })}
                         className={`form-control ${errors.brand ? "is-invalid" : ""}`}
                       >
                         <option value="">Select Brand</option>

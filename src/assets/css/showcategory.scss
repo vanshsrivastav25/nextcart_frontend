@@ -137,11 +137,7 @@
 
 /* Header stays dark */
 [data-theme="dark"] .admin-card .card-header {
-  background: linear-gradient(
-    135deg,
-    #111827,
-    #000000
-  );
+  background: var(--card-bg);
 }
 
 /* Table full dark */
