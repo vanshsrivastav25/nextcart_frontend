@@ -111,7 +111,11 @@ const ShowProduct = () => {
                           <tr key={product.id}>
                             <td>{product.id}</td>
                             <td>
-                                <img src={product.image_url} alt="" width={50} />
+                              {
+                                product.image_url
+                                  ? <img src={product.image_url} alt="" width={50} />
+                                  : <img src="https://placehold.co/50x50" alt="placeholder" />
+                              }
                             </td>
                             <td>{product.title}</td>
                             <td>{product.price}</td>

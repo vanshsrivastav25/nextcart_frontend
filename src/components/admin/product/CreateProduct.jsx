@@ -3,29 +3,46 @@ import Layout from "../../common/Layout";
 import AdminSidebar from "../../common/AdminSidebar";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faStar, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { adminToken, apiUrl } from "../../common/https";
 import { toast } from "react-toastify";
 import JoditEditor from "jodit-react";
 
 const CreateProduct = () => {
+  const editor = useRef(null);
+  const navigate = useNavigate();
+
   const [disable, setDisable] = useState(false);
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
-  const editor = useRef(null);
-  const navigate = useNavigate();
+  const [galleryImages, setGalleryImages] = useState([]);
 
   const {
     register,
     handleSubmit,
     setValue,
-    trigger,
+    watch,
+    setError,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: { description: "" },
+  });
 
   /* ================= SAVE PRODUCT ================= */
   const saveProduct = async (data) => {
+    if (!data.description || data.description.trim() === "") {
+      toast.error("Description is required");
+      return;
+    }
+
+    const payload = {
+      ...data,
+      gallery: galleryImages.map((img) => img.id),
+      default_image:
+        galleryImages.find((img) => img.is_default)?.id || null,
+    };
+
     setDisable(true);
 
     const res = await fetch(`${apiUrl}/products`, {
@@ -35,7 +52,7 @@ const CreateProduct = () => {
         Accept: "application/json",
         Authorization: `Bearer ${adminToken()}`,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(payload),
     });
 
     const result = await res.json();
@@ -44,9 +61,74 @@ const CreateProduct = () => {
     if (result.status === 200) {
       toast.success(result.message);
       navigate("/admin/products");
+    } else if (result.errors) {
+      Object.keys(result.errors).forEach((field) => {
+        setError(field, { message: result.errors[field][0] });
+      });
     } else {
       toast.error("Something went wrong");
     }
+  };
+
+  /* ================= IMAGE UPLOAD ================= */
+  const handleFile = async (e) => {
+    
+    const files = Array.from(e.target.files);
+    
+    for (let file of files) {
+      const formData = new FormData();
+      formData.append("image", file);
+      
+      setDisable(true);
+      
+      const res = await fetch(`${apiUrl}/temp-images`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${adminToken()}`,
+        },
+        body: formData,
+      });
+      
+      const result = await res.json();
+      
+      if (result.status === 200) {
+        console.log("UPLOAD RESPONSE 👉", result);
+        setGalleryImages((prev) => [
+          ...prev,
+          {
+            id: result.data.id,
+            url: result.data.image_url,
+            is_default: prev.length === 0,
+          },
+        ]);
+      }
+
+      setDisable(false);
+    }
+
+    e.target.value = null;
+  };
+
+  /* ================= IMAGE ACTIONS ================= */
+  const setDefaultImage = (id) => {
+    setGalleryImages((prev) =>
+      prev.map((img) => ({
+        ...img,
+        is_default: img.id === id,
+      }))
+    );
+  };
+
+  const removeImage = (id) => {
+    setGalleryImages((prev) => {
+      const filtered = prev.filter((img) => img.id !== id);
+
+      if (!filtered.some((img) => img.is_default) && filtered.length > 0) {
+        filtered[0].is_default = true;
+      }
+
+      return [...filtered];
+    });
   };
 
   /* ================= FETCH DATA ================= */
@@ -132,11 +214,11 @@ const CreateProduct = () => {
                     <label className="form-label">Description</label>
                     <JoditEditor
                       ref={editor}
-                      onBlur={(content) => {
-                        setValue("description", content);
-                        trigger("description");
+                      value={watch("description") || ""}
+                      onBlur={(newContent) => {
+                        setValue("description", newContent, { shouldValidate: true });
                       }}
-                    />
+                    /> 
                     <input
                       type="hidden"
                       {...register("description", { required: "Description is required" })}
@@ -230,6 +312,59 @@ const CreateProduct = () => {
                         <option value="yes">Yes</option>
                       </select>
                     </div>
+                  </div>
+
+                 {/* GALLERY */}
+                  <div className="mb-3">
+                    <label className="form-label">Product Gallery</label>
+                    <input
+                      type="file"
+                      multiple
+                      accept="image/*"
+                      onChange={handleFile}
+                      className="form-control"
+                    />
+                  </div>
+
+                  {/* PREVIEW */}
+                  <div className="row g-3 mb-3">
+                    {galleryImages.map((img) => (
+                      <div className="col-md-3" key={img.id}>
+                        <div className="border rounded p-2 position-relative">
+                          {img.is_default && (
+                            <span className="badge bg-success position-absolute top-0 start-0 m-1">
+                              Default
+                            </span>
+                          )}
+                          <img
+                            src={img.url}
+                            alt=""
+                            className="img-fluid rounded"
+                            style={{
+                              height: 150,
+                              objectFit: "cover",
+                              width: "100%",
+                            }}
+                          />
+                          <div className="d-flex justify-content-between mt-2">
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-outline-primary"
+                              onClick={() => setDefaultImage(img.id)}
+                            >
+                              <FontAwesomeIcon icon={faStar} />
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-outline-danger"
+                              onClick={() => removeImage(img.id)}
+                            >
+                              <FontAwesomeIcon icon={faTrash} />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
 
                   {/* SUBMIT */}
