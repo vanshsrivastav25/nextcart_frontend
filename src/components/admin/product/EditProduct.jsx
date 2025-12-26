@@ -124,7 +124,8 @@ const EditProduct = () => {
         setError(field, { message: result.errors[field][0] });
       });
     } else {
-      toast.error("Update failed");
+      //toast.error("Update failed");
+      toast.error(result.message);
     }
   };
 
@@ -135,10 +136,11 @@ const EditProduct = () => {
     for (let file of files) {
       const formData = new FormData();
       formData.append("image", file);
+      formData.append("product_id", id); // 👈 REQUIRED
 
       setDisable(true);
 
-      const res = await fetch(`${apiUrl}/temp-images`, {
+      const res = await fetch(`${apiUrl}/save-product-images`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${adminToken()}`,
@@ -157,33 +159,59 @@ const EditProduct = () => {
             is_default: prev.length === 0,
           },
         ]);
+
+        toast.success("Image uploaded");
+      } else {
+        toast.error("Image upload failed");
       }
+
       setDisable(false);
     }
 
     e.target.value = null;
   };
 
+
   /* ================= IMAGE ACTIONS ================= */
-  const setDefaultImage = (id) => {
+  const setDefaultImage = async (imageId) => {
+    const img = galleryImages.find((i) => i.id === imageId);
+    if (!img) return;
+
+    await fetch(`${apiUrl}/change-product-default-images`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${adminToken()}`,
+      },
+      body: JSON.stringify({
+        product_id: id,
+        image: img.url.split("/").pop(), // image name
+      }),
+    });
+
     setGalleryImages((prev) =>
-      prev.map((img) => ({
-        ...img,
-        is_default: img.id === id,
+      prev.map((i) => ({
+        ...i,
+        is_default: i.id === imageId,
       }))
     );
+
+    toast.success("Default image updated");
   };
 
-  const removeImage = (id) => {
-    setGalleryImages((prev) => {
-      const filtered = prev.filter((img) => img.id !== id);
-
-      if (!filtered.some((img) => img.is_default) && filtered.length > 0) {
-        filtered[0].is_default = true;
-      }
-      return [...filtered];
+  const removeImage = async (id) => {
+    await fetch(`${apiUrl}/product-images/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${adminToken()}`,
+      },
     });
+
+    setGalleryImages((prev) => prev.filter((img) => img.id !== id));
+    toast.success(result.message);
   };
+
+
 
   return (
     <Layout>

@@ -16,6 +16,7 @@ import AdminDashboard from './components/admin/AdminDashboard';
 
 import UserLogin from './components/user/UserLogin';
 import UserRegister from './components/user/UserRegister';
+import OTPVerification from './components/user/OTPVerification';
 import UserProfile from './components/user/UserProfile';
 
 import ShowCategory from './components/admin/category/ShowCategory';
@@ -46,6 +47,7 @@ function App() {
             {/* User Account Routes */}
             <Route path='/account/register' element={<UserRegister />} />
             <Route path='/account/login' element={<UserLogin />} />
+            <Route path="/account/verify-otp" element={<OTPVerification />} />
 
              <Route path='/account/profile' element={
               <RequireAuth>

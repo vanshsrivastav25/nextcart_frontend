@@ -24,6 +24,7 @@ import './assets/css/loading.scss'
 import './assets/css/login.scss'
 import './assets/css/userlogin.scss'
 import './assets/css/userregister.scss'
+import './assets/css/otpverification.scss'
 import './assets/css/usersidebar.scss'
 
 
