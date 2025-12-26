@@ -1,9 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ProductImgOne from "../../assets/images/Product-1.jpg";
-import ProductImgTwo from "../../assets/images/Product-2.jpg";
-import ProductImgThree from "../../assets/images/Product-3.jpg";
-import ProductImgFour from "../../assets/images/Product-4.jpg";
+import { apiUrl } from '../common/https';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,6 +10,26 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const FeaturedProduct = () => {
+  const[products, setProducts] = useState([])
+  
+  const featuredProducts = async () => {
+    await fetch(apiUrl+'/get-featured-products',{
+      method: 'GET',
+      headers: {
+        'Content-type' : 'application/json',
+        'Accept' : 'application/json',
+      }
+    })
+    .then(res => res.json())
+    .then(result => {
+      setProducts(result.data)
+    })
+  }
+
+  useEffect(() => {
+    featuredProducts();
+  },[])
+
   return (
     <section className="featured-products py-5">
       <div className="featured-products-container">
@@ -28,188 +45,59 @@ const FeaturedProduct = () => {
         <div className="row g-4">
 
            {/* Product One */}
-          <div className="col-sm-6 col-md-4 col-lg-3">
+           {
+            products && products.map(product => {
+              return(
+                <div className="col-sm-6 col-md-4 col-lg-3">
 
-            <div className="product-card">
+                  <div className="product-card">
 
-              {/* IMAGE */}
-              <div className="product-img">
-                <img src={ProductImgOne} alt="Product" />
+                    {/* IMAGE */}
+                    <div className="product-img">
+                      <img src={product.image_url} alt="Product" />
 
-                <button className="wishlist-btn">
-                  <FontAwesomeIcon icon={faHeart} />
-                </button>
+                      <button className="wishlist-btn">
+                        <FontAwesomeIcon icon={faHeart} />
+                      </button>
 
-                {/* Hover Button */}
-                <div className="quick-add">
-                  <button className="btn w-100">
-                    <FontAwesomeIcon
-                      icon={faCartShopping}
-                      className="me-2"
-                    />
-                    Add to Cart
-                  </button>
+                      {/* Hover Button */}
+                      <div className="quick-add">
+                        <button className="btn w-100">
+                          <FontAwesomeIcon
+                            icon={faCartShopping}
+                            className="me-2"
+                          />
+                          Add to Cart
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* CONTENT */}
+                    <div className="product-body">
+                      <Link to="/product" className="product-title">
+                        {product.title}
+                      </Link>
+
+                      <div className="rating">
+                        {[...Array(5)].map((_, i) => (
+                          <FontAwesomeIcon key={i} icon={faStar} />
+                        ))}
+                      </div>
+
+                      <div className="price">
+                        ₹{product.price}
+                        {
+                          product.compare_price && <span>₹{product.compare_price}</span>
+                        } 
+                      </div>
+                    </div>
+
+                  </div>
+
                 </div>
-              </div>
-
-              {/* CONTENT */}
-              <div className="product-body">
-                <Link to="/" className="product-title">
-                  Olive Green Casual Shirt
-                </Link>
-
-                <div className="rating">
-                  {[...Array(5)].map((_, i) => (
-                    <FontAwesomeIcon key={i} icon={faStar} />
-                  ))}
-                </div>
-
-                <div className="price">
-                  ₹3,999 <span>₹6,999</span>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* Product Two */}
-          <div className="col-sm-6 col-md-4 col-lg-3">
-
-            <div className="product-card">
-
-              {/* IMAGE */}
-              <div className="product-img">
-                <img src={ProductImgTwo} alt="Product" />
-
-                <button className="wishlist-btn">
-                  <FontAwesomeIcon icon={faHeart} />
-                </button>
-
-                {/* Hover Button */}
-                <div className="quick-add">
-                  <button className="btn w-100">
-                    <FontAwesomeIcon
-                      icon={faCartShopping}
-                      className="me-2"
-                    />
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-
-              {/* CONTENT */}
-              <div className="product-body">
-                <Link to="/" className="product-title">
-                  Olive Green Casual Shirt
-                </Link>
-
-                <div className="rating">
-                  {[...Array(5)].map((_, i) => (
-                    <FontAwesomeIcon key={i} icon={faStar} />
-                  ))}
-                </div>
-
-                <div className="price">
-                  ₹3,999 <span>₹6,999</span>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* Product Three */}
-          <div className="col-sm-6 col-md-4 col-lg-3">
-
-            <div className="product-card">
-
-              {/* IMAGE */}
-              <div className="product-img">
-                <img src={ProductImgThree} alt="Product" />
-
-                <button className="wishlist-btn">
-                  <FontAwesomeIcon icon={faHeart} />
-                </button>
-
-                {/* Hover Button */}
-                <div className="quick-add">
-                  <button className="btn w-100">
-                    <FontAwesomeIcon
-                      icon={faCartShopping}
-                      className="me-2"
-                    />
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-
-              {/* CONTENT */}
-              <div className="product-body">
-                <Link to="/" className="product-title">
-                  Olive Green Casual Shirt
-                </Link>
-
-                <div className="rating">
-                  {[...Array(5)].map((_, i) => (
-                    <FontAwesomeIcon key={i} icon={faStar} />
-                  ))}
-                </div>
-
-                <div className="price">
-                  ₹3,999 <span>₹6,999</span>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* Product Four */}
-          <div className="col-sm-6 col-md-4 col-lg-3">
-
-            <div className="product-card">
-
-              {/* IMAGE */}
-              <div className="product-img">
-                <img src={ProductImgFour} alt="Product" />
-
-                <button className="wishlist-btn">
-                  <FontAwesomeIcon icon={faHeart} />
-                </button>
-
-                {/* Hover Button */}
-                <div className="quick-add">
-                  <button className="btn w-100">
-                    <FontAwesomeIcon
-                      icon={faCartShopping}
-                      className="me-2"
-                    />
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-
-              {/* CONTENT */}
-              <div className="product-body">
-                <Link to="/" className="product-title">
-                  Olive Green Casual Shirt
-                </Link>
-
-                <div className="rating">
-                  {[...Array(5)].map((_, i) => (
-                    <FontAwesomeIcon key={i} icon={faStar} />
-                  ))}
-                </div>
-
-                <div className="price">
-                  ₹3,999 <span>₹6,999</span>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
+              )
+            })
+           }
         </div>
 
       </div>
